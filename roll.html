@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Roller</title>
+    <link rel="stylesheet" type="text/css" href="roller.css">
+    <script src="roll.js"></script>  
+  </head>
+
+  <body onload="renderDice()">
+      <div class="table-top" style="width: 800px; margin:  auto;">
+        <div class="dice" style="float: left;">
+          <div class="pct"></div>
+          <div class="d20"></div>
+          <div class="d6"></div>
+        </div>
+        <div class="log" style="float: right;">
+          <textarea id="dice-log" cols="50" rows="5"></textarea>
+          <button onclick="logClear()">Clear</button>
+        </div>
+      </div>
+  </body>
+</html>
