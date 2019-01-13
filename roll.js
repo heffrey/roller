@@ -26,29 +26,65 @@ const d10one = [
   {"fb": 9, "fbl": 5, "fbr": 1}
 ];
 
-const d20faces = ["f","lf", "rf", "bf", "l", "r", "bl", "br", "tl", "tr"];
+const d20faces = ["d20f0","d20f1", "d20f4", "d20f7", "d20f9", "d20f5", "d20f8", "d20f6", "d20f2", "d20f3"];
 const d20 = [
-  {"f": 1, "lf":7, "rf":19, "bf":13, "l":15, "r":9, "bl":5, "br":11, "tl":17, "tr":3},
-  {"f": 2, "lf":12, "rf":18, "bf":20, "l":10, "r":4, "bl":8, "br":14, "tl":15, "tr":5},
-  {"f": 3, "lf":17, "rf":16, "bf":19, "l":7, "r":6, "bl":1, "br":9, "tl":10, "tr":8},
-  {"f": 4, "lf":18, "rf":11, "bf":14, "l":2, "r":9, "bl":20, "br":6, "tl":5, "tr":13},
-  {"f": 5, "lf":18, "rf":15, "bf":13, "l":4, "r":7, "bl":11, "br":1, "tl":2, "tr":12},
-  {"f": 6, "lf":9, "rf":16, "bf":14, "l":11, "r":8, "bl":4, "br":20, "tl":19, "tr":3},
-  {"f": 7, "lf":15, "rf":17, "bf":1, "l":5, "r":3, "bl":13, "br":19, "tl":12, "tr":10},
-  {"f": 8, "lf":16, "rf":10, "bf":20, "l":6, "r":12, "bl":14, "br":2, "tl":3, "tr":17},
-  {"f": 9, "lf":6, "rf":11, "bf":19, "l":16, "r":13, "bl":3, "br":1, "tl":14, "tr":4},
-  {"f": 10, "lf":17, "rf":12, "bf":8, "l":3, "r":2, "bl":16, "br":20, "tl":7, "tr":15},
-  {"f": 11, "lf":9, "rf":4, "bf":13, "l":19, "r":18, "bl":1, "br":5, "tl":6, "tr":14},
-  {"f": 12, "lf":10, "rf":15, "bf":2, "l":8, "r":5, "bl":20, "br":18, "tl":17, "tr":7},
-  {"f": 13, "lf":11, "rf":5, "bf":1, "l":9, "r":15, "bl":19, "br":7, "tl":4, "tr":18},
-  {"f": 14, "lf":4, "rf":6, "bf":20, "l":18, "r":16, "bl":2, "br":8, "tl":11, "tr":9},
-  {"f": 15, "lf":5, "rf":12, "bf":7, "l":13, "r":10, "bl":1, "br":17, "tl":18, "tr":2},
-  {"f": 16, "lf":6, "rf":3, "bf":8, "l":14, "r":17, "bl":20, "br":10, "tl":9, "tr":19},
-  {"f": 17, "lf":10, "rf":3, "bf":7, "l":12, "r":19, "bl":15, "br":1, "tl":8, "tr":16},
-  {"f": 18, "lf":5, "rf":4, "bf":2, "l":15, "r":14, "bl":12, "br":20, "tl":13, "tr":11},
-  {"f": 19, "lf":3, "rf":9, "bf":1, "l":17, "r":11, "bl":7, "br":13, "tl":16, "tr":6},
-  {"f": 20, "lf":2, "rf":14, "bf":8, "l":12, "r":6, "bl":10, "br":16, "tl":18, "tr":4}
+  {"d20f0": 1, "d20f1":7, "d20f4":19, "d20f7":13, "d20f9":15, "d20f5":9, "d20f8":5, "d20f6":11, "d20f2":17, "d20f3":3},
+  {"d20f0": 2, "d20f1":12, "d20f4":18, "d20f7":20, "d20f9":10, "d20f5":4, "d20f8":8, "d20f6":14, "d20f2":15, "d20f3":5},
+  {"d20f0": 3, "d20f1":17, "d20f4":16, "d20f7":19, "d20f9":7, "d20f5":6, "d20f8":1, "d20f6":9, "d20f2":10, "d20f3":8},
+  {"d20f0": 4, "d20f1":18, "d20f4":11, "d20f7":14, "d20f9":2, "d20f5":9, "d20f8":20, "d20f6":6, "d20f2":5, "d20f3":13},
+  {"d20f0": 5, "d20f1":18, "d20f4":15, "d20f7":13, "d20f9":4, "d20f5":7, "d20f8":11, "d20f6":1, "d20f2":2, "d20f3":12},
+  {"d20f0": 6, "d20f1":9, "d20f4":16, "d20f7":14, "d20f9":11, "d20f5":8, "d20f8":4, "d20f6":20, "d20f2":19, "d20f3":3},
+  {"d20f0": 7, "d20f1":15, "d20f4":17, "d20f7":1, "d20f9":5, "d20f5":3, "d20f8":13, "d20f6":19, "d20f2":12, "d20f3":10},
+  {"d20f0": 8, "d20f1":16, "d20f4":10, "d20f7":20, "d20f9":6, "d20f5":12, "d20f8":14, "d20f6":2, "d20f2":3, "d20f3":17},
+  {"d20f0": 9, "d20f1":6, "d20f4":11, "d20f7":19, "d20f9":16, "d20f5":13, "d20f8":3, "d20f6":1, "d20f2":14, "d20f3":4},
+  {"d20f0": 10, "d20f1":17, "d20f4":12, "d20f7":8, "d20f9":3, "d20f5":2, "d20f8":16, "d20f6":20, "d20f2":7, "d20f3":15},
+  {"d20f0": 11, "d20f1":9, "d20f4":4, "d20f7":13, "d20f9":19, "d20f5":18, "d20f8":1, "d20f6":5, "d20f2":6, "d20f3":14},
+  {"d20f0": 12, "d20f1":10, "d20f4":15, "d20f7":2, "d20f9":8, "d20f5":5, "d20f8":20, "d20f6":18, "d20f2":17, "d20f3":7},
+  {"d20f0": 13, "d20f1":11, "d20f4":5, "d20f7":1, "d20f9":9, "d20f5":15, "d20f8":19, "d20f6":7, "d20f2":4, "d20f3":18},
+  {"d20f0": 14, "d20f1":4, "d20f4":6, "d20f7":20, "d20f9":18, "d20f5":16, "d20f8":2, "d20f6":8, "d20f2":11, "d20f3":9},
+  {"d20f0": 15, "d20f1":5, "d20f4":12, "d20f7":7, "d20f9":13, "d20f5":10, "d20f8":1, "d20f6":17, "d20f2":18, "d20f3":2},
+  {"d20f0": 16, "d20f1":6, "d20f4":3, "d20f7":8, "d20f9":14, "d20f5":17, "d20f8":20, "d20f6":10, "d20f2":9, "d20f3":19},
+  {"d20f0": 17, "d20f1":10, "d20f4":3, "d20f7":7, "d20f9":12, "d20f5":19, "d20f8":15, "d20f6":1, "d20f2":8, "d20f3":16},
+  {"d20f0": 18, "d20f1":5, "d20f4":4, "d20f7":2, "d20f9":15, "d20f5":14, "d20f8":12, "d20f6":20, "d20f2":13, "d20f3":11},
+  {"d20f0": 19, "d20f1":3, "d20f4":9, "d20f7":1, "d20f9":17, "d20f5":11, "d20f8":7, "d20f6":13, "d20f2":16, "d20f3":6},
+  {"d20f0": 20, "d20f1":2, "d20f4":14, "d20f7":8, "d20f9":12, "d20f5":6, "d20f8":10, "d20f6":16, "d20f2":18, "d20f3":4}
 ];  
+
+const d12faces = ["d12f0", "d12f1", "d12f2", "d12f3", "d12f4", "d12f5"];
+const d12 = [
+  {"d12f0": 1, "d12f1": 5, "d12f2": 10, "d12f3": 2, "d12f4": 4, "d12f5": 6},
+  {"d12f0": 2, "d12f1": 7, "d12f2": 8, "d12f3": 4, "d12f4": 1, "d12f5": 10},
+  {"d12f0": 3, "d12f1": 6, "d12f2": 4, "d12f3": 8, "d12f4": 12, "d12f5": 11},
+  {"d12f0": 4, "d12f1": 8, "d12f2": 3, "d12f3": 6, "d12f4": 1, "d12f5": 2},
+  {"d12f0": 5, "d12f1": 11, "d12f2": 9, "d12f3": 10, "d12f4": 1, "d12f5": 6},
+  {"d12f0": 6, "d12f1": 3, "d12f2": 11, "d12f3": 5, "d12f4": 1, "d12f5": 4},
+  {"d12f0": 7, "d12f1": 2, "d12f2": 10, "d12f3": 9, "d12f4": 12, "d12f5": 8},
+  {"d12f0": 8, "d12f1": 4, "d12f2": 2, "d12f3": 7, "d12f4": 12, "d12f5": 3},
+  {"d12f0": 9, "d12f1": 10, "d12f2": 5, "d12f3": 11, "d12f4": 12, "d12f5": 7},
+  {"d12f0": 10, "d12f1": 9, "d12f2": 7, "d12f3": 2, "d12f4": 1, "d12f5": 5},
+  {"d12f0": 11, "d12f1": 5, "d12f2": 6, "d12f3": 3, "d12f4": 12, "d12f5": 9},
+  {"d12f0": 12, "d12f1": 11, "d12f2": 3, "d12f3": 8, "d12f4": 7, "d12f5": 9}
+];
+
+const d8faces = ["d8f0", "d8f1", "d8f2", "d8f3"];
+const d8 = [
+  {"d8f0": 1, "d8f1": 3, "d8f2": 7, "d8f3": 4},
+  {"d8f0": 2, "d8f1": 4, "d8f2": 8, "d8f3": 3},
+  {"d8f0": 3, "d8f1": 5, "d8f2": 1, "d8f3": 2},
+  {"d8f0": 4, "d8f1": 6, "d8f2": 2, "d8f3": 1},
+  {"d8f0": 5, "d8f1": 7, "d8f2": 3, "d8f3": 8},
+  {"d8f0": 6, "d8f1": 8, "d8f2": 4, "d8f3": 7},
+  {"d8f0": 7, "d8f1": 1, "d8f2": 5, "d8f3": 6},
+  {"d8f0": 8, "d8f1": 2, "d8f2": 6, "d8f3": 5}
+];
+
+const d4faces = ["d4f0", "d4f1", "d4f2"];
+const d4 = [
+  {"d4f0": 1, "d4f1": 2, "d4f2": 3},
+  {"d4f0": 2, "d4f1": 1, "d4f2": 3},
+  {"d4f0": 3, "d4f1": 4, "d4f2": 2},
+  {"d4f0": 4, "d4f1": 3, "d4f2": 1}
+];
 
 var logLine = 0;
 
@@ -78,7 +114,18 @@ function renderD20_faces(die, value)
 {
    var die_face = d20[value-1];
    d20faces.forEach(function(a){die.getElementsByClassName(a)[0].innerText = die_face[a]; } );
-   
+}
+
+function renderD12_faces(die, value)
+{
+   var die_face = d12[value-1];
+   d12faces.forEach(function(a){die.getElementsByClassName(a)[0].innerText = die_face[a]; } );
+}
+
+function renderD4_face(die, value)
+{
+   var die_face = d4[value-1];
+   d4faces.forEach(function(a){die.getElementsByClassName(a)[0].innerText = die_face[a]; } );
 }
 
 function animate(die, animation_callback)
@@ -111,17 +158,17 @@ function rollPct(dice, mode)
 {
   switch (mode) 
   {
-      case "animated":
-        animate(dice, function(){    
-          var roll = randBetween(0,99);
-          renderPct_faces(dice, roll);
-          dice.value = roll;});
-        break;
-      case "static":
+    case "animated":
+      animate(dice, function(){    
         var roll = randBetween(0,99);
         renderPct_faces(dice, roll);
-        dice.value = roll;
-        break;
+        dice.value = roll;});
+      break;
+    case "static":
+      var roll = randBetween(0,99);
+      renderPct_faces(dice, roll);
+      dice.value = roll;
+      break;
   }
 }
 
@@ -129,41 +176,102 @@ function rollD20(die, mode)
 {  
   switch (mode) 
   {
-      case "animated":
-        animate(die, function(){    
-          var roll = randBetween(1,20);
-          renderD20_faces(die, roll);
-          die.value = roll;});
-        break;
-      case "static":
+    case "animated":
+      animate(die, function(){    
         var roll = randBetween(1,20);
         renderD20_faces(die, roll);
-        die.value = roll;
-        break;
+        die.value = roll;});
+      break;
+    case "static":
+      var roll = randBetween(1,20);
+      renderD20_faces(die, roll);
+      die.value = roll;
+      break;
   }
 }
 
+function renderD8_faces(die, value)
+{
+   var die_face = d8[value-1];
+   d8faces.forEach(function(a){die.getElementsByClassName(a)[0].innerText = die_face[a]; } );
+}
+
+
 function renderD6_face(die, value)
 {
-  die.getElementsByClassName("f6")[0].innerText = value;
-  die.value = value;
+  die.getElementsByClassName("d6f0")[0].innerText = value;
+}
+
+function rollD12(die, mode) 
+{
+  switch (mode) 
+  {
+    case "animated":
+      animate(die, function(){    
+        var roll = randBetween(1,12);
+        renderD12_faces(die, roll);
+        die.value = roll;});
+      break;
+    case "static":
+      var roll = randBetween(1,12);
+      renderD12_faces(die, roll);
+      die.value = roll;
+      break;
+  }
+}
+
+
+function rollD8(die, mode) 
+{
+  switch (mode) 
+  {
+    case "animated":
+      animate(die, function(){    
+        var roll = randBetween(1,8);
+        renderD8_faces(die, roll);
+        die.value = roll;});
+      break;
+    case "static":
+      var roll = randBetween(1,8);
+      renderD8_faces(die, roll);
+      die.value = roll;
+      break;
+  }
 }
 
 function rollD6(die, mode) 
 {
   switch (mode) 
   {
-      case "animated":
-        animate(die, function(){    
-          var roll = randBetween(1,6);
-          renderD6_face(die, roll);
-          die.value = roll;});
-        break;
-      case "static":
+    case "animated":
+      animate(die, function(){    
         var roll = randBetween(1,6);
         renderD6_face(die, roll);
-        die.value = roll;
-        break;
+        die.value = roll;});
+      break;
+    case "static":
+      var roll = randBetween(1,6);
+      renderD6_face(die, roll);
+      die.value = roll;
+      break;
+  }
+}
+
+function rollD4(die, mode) 
+{
+  switch (mode) 
+  {
+    case "animated":
+      animate(die, function(){    
+        var roll = randBetween(1,4);
+        renderD4_face(die, roll);
+        die.value = roll;});
+      break;
+    case "static":
+      var roll = randBetween(1,4);
+      renderD4_face(die, roll);
+      die.value = roll;
+      break;
   }
 }
 
@@ -184,43 +292,82 @@ function appendImg (a, b)
 
 function renderPct(die)
 {
-    die.width = 128;
-    die.height = 64;
-    die.onclick = function() { rollPct(die, "animated"); };
-    
-    appendImg(die, "pcta.png", "width:64");
-    appendImg(die, "pctb.png", "width:64");
-    
-    d10tenfaces.forEach(function(face){addFace(die,face);});
-    
-    d10onefaces.forEach(function(face){addFace(die,face);});
-    
-    rollPct(die, "static");
+  die.width = 128;
+  die.height = 64;
+  die.onclick = function() { rollPct(die, "animated"); };
+  
+  appendImg(die, "pcta.png");
+  appendImg(die, "pctb.png");
+  
+  d10tenfaces.forEach(function(face){addFace(die,face);});
+  
+  d10onefaces.forEach(function(face){addFace(die,face);});
+  
+  rollPct(die, "static");
 }
 
 function renderD20(die)
 {
-    die.width = 64;
-    die.height = 64;
-    die.onclick = function() { rollD20(die, "animated"); };
-    
-    appendImg(die, "d20.png", "width:64");
-    d20faces.forEach(function(face){addFace(die, face);}); 
-    
-    rollD20(die, "static");
+  die.width = 64;
+  die.height = 64;
+  die.onclick = function() { rollD20(die, "animated"); };
+  
+  appendImg(die, "d20.png");
+  d20faces.forEach(function(face){addFace(die, face);}); 
+  
+  rollD20(die, "static");
+}
+
+function renderD12(die)
+{
+  die.width = 64;
+  die.height = 64;
+  die.onclick = function() { rollD12(die, "animated"); };
+  
+  appendImg(die, "d12.png");
+  d12faces.forEach(function(face){addFace(die, face);}); 
+
+  rollD12(die, "static");
+}
+
+function renderD8(die)
+{
+  die.width = 64;
+  die.height = 64;
+  die.onclick = function() { rollD8(die, "animated"); };
+
+
+  appendImg(die, "d8.png");
+  d8faces.forEach(function(face){addFace(die, face);}); 
+
+  rollD8(die, "static");
+}
+
+function renderD4(die)
+{
+  die.width = 64;
+  die.height = 64;
+  
+  die.onclick = function() { rollD4(die, "animated"); };
+
+  appendImg(die, "d4.png");
+
+  d4faces.forEach(function(face){addFace(die, face);}); 
+  
+  rollD4(die, "static");
 }
 
 function renderD6(die)
 {
-    die.width = 64;
-    die.height = 64;
-    die.onclick = function() { rollD6(die, "animated"); };
-    
-    appendImg(die, "d6.png", "width:64");
+  die.width = 64;
+  die.height = 64;
+  die.onclick = function() { rollD6(die, "animated"); };
+  
+  appendImg(die, "d6.png");
 
-    addFace(die, "f6");
-    
-    rollD6(die, "static");
+  addFace(die, "d6f0");
+  
+  rollD6(die, "static");
 }
 
 function renderDice() 
@@ -238,6 +385,20 @@ function renderDice()
     die.type = "d20";
     renderD20(die);
   }
+  
+  var d12 = document.getElementsByClassName("d12");
+  for (let die of d12) 
+  {
+    die.type = "d12";
+    renderD12(die);
+  }
+ 
+  var d8 = document.getElementsByClassName("d8");
+  for (let die of d8) 
+  {
+    die.type = "d8";
+    renderD8(die);
+  }
  
   var d6 = document.getElementsByClassName("d6");
   for (let die of d6) 
@@ -245,5 +406,13 @@ function renderDice()
     die.type = "d6"
     renderD6(die);
   }
+  
+  var d4 = document.getElementsByClassName("d4");
+  for (let die of d4) 
+  {
+    die.type = "d4";
+    renderD4(die);
+  }
+  
   logClear();
 }
