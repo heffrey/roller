@@ -87,20 +87,46 @@ const d4 = [
 ];
 
 var logLine = 0;
+var maxValues = { "pct": 99, "d20": 20, "d12": 12, "d8": 8, "d6": 6, "d4": 4 };
 
-function logRoll(a)
+function logRoll(type, value)
 {
   var log = document.getElementById("dice-log");
   logLine++;
-  if (logLine < 10) logLine =  "  " + logLine;
-  else if (logLine < 100) logLine = " " + logLine;
-  log.value = log.value + logLine + ". " +  a + "\n";
-  log.setSelectionRange(log.value.length,log.value.length);
+
+  var entry = document.createElement("div");
+  entry.className = "log-entry";
+
+  var max = maxValues[type];
+  var tag = "";
+
+  if (type === "d20" && value === 20) {
+    entry.classList.add("crit");
+    tag = "NAT 20!";
+  } else if (type === "d20" && value === 1) {
+    entry.classList.add("fumble");
+    tag = "NAT 1";
+  } else if (value === max) {
+    entry.classList.add("max-roll");
+    tag = "MAX";
+  }
+
+  var html = '<span class="roll-num">#' + logLine + '</span>';
+  html += '<span class="roll-type">' + type + '</span>';
+  html += '<span class="roll-arrow">&rarr;</span>';
+  html += '<span class="roll-value">' + value + '</span>';
+  if (tag) {
+    html += '<span class="roll-tag">' + tag + '</span>';
+  }
+
+  entry.innerHTML = html;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
 }
 
 function logClear(){
   var log = document.getElementById("dice-log");
-  log.value = "";
+  log.innerHTML = "";
   logLine = 0;
 }
 
@@ -130,18 +156,22 @@ function renderD4_face(die, value)
 
 function animate(die, animation_callback)
 {
+  die.classList.remove("rolling");
+  void die.offsetWidth;
+  die.classList.add("rolling");
   var id = setInterval(frame, 5);
   var c = 0;
   function frame (){
     if (c>50) {
       clearInterval(id);
-      logRoll(die.type + " rolls " + die.value);
+      die.classList.remove("rolling");
+      logRoll(die.type, die.value);
     } else
     {
       c++;
       animation_callback();
     }
-  } 
+  }
 }
 
 function renderPct_faces (dice, roll)
