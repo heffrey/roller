@@ -731,6 +731,64 @@ img {
   -webkit-transform: rotate(220deg); /* Safari */
 }
 
+/* Dungeon panel */
+.dungeon {
+  max-width: 640px;
+  margin: 16px auto 0;
+  background: #1a1a2e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.dungeon-header {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #00ffff;
+  margin-bottom: 6px;
+}
+
+.dungeon-map {
+  font: 13px/1.2 Consolas, monaco, monospace;
+  color: #33ff33;
+  background: #0a0a1a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 0;
+  overflow: hidden;
+  min-height: 168px;
+  text-align: center;
+  user-select: none;
+}
+
+.dungeon-text {
+  font: 13px Consolas, monaco, monospace;
+  color: #ff6ec7;
+  margin-top: 8px;
+  min-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.dungeon-text::after {
+  content: "\2588";
+  animation: blink-cursor 0.7s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.dungeon-text.text-crit { color: #2ecc2e; }
+.dungeon-text.text-fumble { color: #ef5350; }
+.dungeon-text.text-treasure { color: #ffd700; }
+.dungeon-text.text-danger { color: #ff6ec7; }
+.dungeon-text.text-neutral { color: #00ffff; }
+
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   html body {
@@ -800,6 +858,17 @@ img {
 
   html .log button:hover { background: #444; }
   html .log button:active { background: #555; }
+
+  /* Dungeon - already dark-first, just ensure borders match */
+  html .dungeon { border-color: #444; }
+  html .dungeon-map { border-color: #444; }
+}
+
+/* Light mode: dungeon keeps its dark terminal look */
+@media (prefers-color-scheme: light) {
+  .dungeon {
+    border-color: #d0d0d0;
+  }
 }
 
 /* Responsive: mobile */
@@ -825,5 +894,15 @@ img {
   .log-entries {
     min-height: 150px;
     max-height: 200px;
+  }
+
+  .dungeon-map {
+    font-size: 11px;
+    min-height: 140px;
+    padding: 6px;
+  }
+
+  .dungeon-text {
+    font-size: 11px;
   }
 }
