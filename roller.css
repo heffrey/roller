@@ -1,6 +1,7 @@
 body {
   font: 14px Consolas, monaco, monospace;
   margin: 20px;
+  color-scheme: light dark;
 }
 
 img {
