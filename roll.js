@@ -122,12 +122,15 @@ function logRoll(type, value)
   entry.innerHTML = html;
   log.appendChild(entry);
   log.scrollTop = log.scrollHeight;
+
+  dungeonAdvance(type, value);
 }
 
 function logClear(){
   var log = document.getElementById("dice-log");
   log.innerHTML = "";
   logLine = 0;
+  initDungeon();
 }
 
 function randBetween(min,max)
@@ -445,4 +448,279 @@ function renderDice()
   }
   
   logClear();
+  initDungeon();
+}
+
+// ─── Dungeon Crawler ───────────────────────────────────────
+
+var DGRID_W = 48;
+var DGRID_H = 32;
+var DVIEW_W = 30;
+var DVIEW_H = 14;
+var dgrid = [];
+var playerX = 0;
+var playerY = 0;
+var dungeonTurnNum = 0;
+var typeTimer = null;
+
+var flavorText = {
+  legendary: [
+    "A dragon's hoard glitters before you!",
+    "You found the Sword of a Thousand Truths!",
+    "A celestial chest opens with blinding light!",
+    "The ancient vault reveals its secrets!",
+    "A legendary artifact pulses with power!",
+    "You discover the lost crown of the Lich King!",
+    "Gems cascade from a golden fountain!",
+    "The gods smile upon your journey!",
+    "A portal to the treasure dimension opens!",
+    "You stumble upon an elder dragon's nest!"
+  ],
+  catastrophe: [
+    "The floor collapses beneath you!",
+    "A mimic! The chest has teeth!",
+    "You trigger an ancient curse...",
+    "Poisonous gas fills the chamber!",
+    "The walls begin closing in!",
+    "A gelatinous cube oozes from the darkness!",
+    "You step on a rune of disintegration!",
+    "An angry beholder rounds the corner!",
+    "The dungeon shakes... a cave-in!",
+    "You awaken something that should have stayed asleep..."
+  ],
+  good: [
+    "A chest of gold gleams in the torchlight.",
+    "You find a healing potion on a pedestal.",
+    "A friendly ghost offers you directions.",
+    "Treasure! Coins scatter across the floor.",
+    "A magical fountain restores your strength.",
+    "You discover a merchant's hidden stash.",
+    "An enchanted weapon hangs on the wall.",
+    "You find a map to deeper levels.",
+    "A shrine blesses you with protection.",
+    "Secret compartment! Full of gemstones."
+  ],
+  neutral: [
+    "An empty chamber. Dust motes drift by.",
+    "Torch sconces flicker on the walls.",
+    "Old bones crunch underfoot.",
+    "Faded murals depict ancient battles.",
+    "A drafty corridor stretches onward.",
+    "You hear distant echoes... footsteps?",
+    "Cobwebs cling to forgotten doorways.",
+    "A mysterious altar hums faintly.",
+    "Scratching sounds from behind the walls.",
+    "An abandoned camp. Still warm ashes."
+  ],
+  bad: [
+    "A pressure plate clicks underfoot!",
+    "Spiders descend from the ceiling!",
+    "A goblin ambush from the shadows!",
+    "Poison darts fly from the walls!",
+    "The door slams shut behind you!",
+    "A pit trap! You barely catch the edge!",
+    "Skeletons rise from the rubble!",
+    "A swinging blade nearly takes your head!",
+    "Toxic mushroom spores fill the air!",
+    "A tripwire! Arrows pepper the corridor!"
+  ]
+};
+
+var encounterSymbols = {
+  legendary: "$",
+  catastrophe: "!",
+  good: "*",
+  neutral: ".",
+  bad: "^"
+};
+
+function initDungeon() {
+  dgrid = [];
+  for (var y = 0; y < DGRID_H; y++) {
+    dgrid[y] = [];
+    for (var x = 0; x < DGRID_W; x++) {
+      dgrid[y][x] = "#";
+    }
+  }
+  playerX = Math.floor(DGRID_W / 2);
+  playerY = Math.floor(DGRID_H / 2);
+  dungeonTurnNum = 0;
+  carveRoom(playerX - 2, playerY - 1, 5, 3);
+  renderDungeon();
+  var textEl = document.getElementById("dungeon-text");
+  if (textEl) {
+    textEl.className = "dungeon-text text-neutral";
+    textEl.textContent = "";
+    typeFlavorText("You stand in a torch-lit chamber. Roll dice to explore...", "text-neutral");
+  }
+}
+
+function carveRoom(rx, ry, rw, rh) {
+  for (var y = ry; y < ry + rh && y < DGRID_H - 1; y++) {
+    for (var x = rx; x < rx + rw && x < DGRID_W - 1; x++) {
+      if (x > 0 && y > 0) {
+        dgrid[y][x] = ".";
+      }
+    }
+  }
+}
+
+function carveCorridor(x1, y1, x2, y2) {
+  var x = x1;
+  var y = y1;
+  while (x !== x2) {
+    if (x > 0 && x < DGRID_W - 1 && y > 0 && y < DGRID_H - 1) {
+      dgrid[y][x] = ".";
+    }
+    x += (x2 > x1) ? 1 : -1;
+  }
+  while (y !== y2) {
+    if (x > 0 && x < DGRID_W - 1 && y > 0 && y < DGRID_H - 1) {
+      dgrid[y][x] = ".";
+    }
+    y += (y2 > y1) ? 1 : -1;
+  }
+  if (x > 0 && x < DGRID_W - 1 && y > 0 && y < DGRID_H - 1) {
+    dgrid[y][x] = ".";
+  }
+}
+
+function dungeonAdvance(type, value) {
+  dungeonTurnNum++;
+  var max = maxValues[type] || 20;
+  var ratio = value / max;
+
+  var encounter;
+  if (type === "d20" && value === 20) {
+    encounter = "legendary";
+  } else if (type === "d20" && value === 1) {
+    encounter = "catastrophe";
+  } else if (value === max && type !== "d20") {
+    encounter = "good";
+  } else if (ratio >= 0.75) {
+    encounter = "good";
+  } else if (ratio >= 0.35) {
+    encounter = "neutral";
+  } else {
+    encounter = "bad";
+  }
+
+  // Pick a random direction
+  var dirs = [
+    { dx: 0, dy: -1 },
+    { dx: 0, dy: 1 },
+    { dx: -1, dy: 0 },
+    { dx: 1, dy: 0 }
+  ];
+  var dir = dirs[Math.floor(Math.random() * dirs.length)];
+
+  // Corridor length 3-5, then a room
+  var corrLen = randBetween(3, 5);
+  var newX = playerX + dir.dx * corrLen;
+  var newY = playerY + dir.dy * corrLen;
+
+  // Clamp to grid bounds
+  newX = Math.max(3, Math.min(DGRID_W - 4, newX));
+  newY = Math.max(3, Math.min(DGRID_H - 4, newY));
+
+  // Carve corridor from player to new room center
+  carveCorridor(playerX, playerY, newX, newY);
+
+  // Carve a room around the new position
+  var rw = randBetween(3, 5);
+  var rh = randBetween(3, 5);
+  var rx = newX - Math.floor(rw / 2);
+  var ry = newY - Math.floor(rh / 2);
+  rx = Math.max(1, Math.min(DGRID_W - rw - 1, rx));
+  ry = Math.max(1, Math.min(DGRID_H - rh - 1, ry));
+  carveRoom(rx, ry, rw, rh);
+
+  // Place encounter symbol
+  var sym = encounterSymbols[encounter];
+  if (dgrid[newY] && dgrid[newY][newX]) {
+    dgrid[newY][newX] = sym;
+  }
+
+  // Move player
+  playerX = newX;
+  playerY = newY;
+
+  renderDungeon();
+
+  // Flavor text
+  var pool = flavorText[encounter];
+  var text = pool[Math.floor(Math.random() * pool.length)];
+  var cssClass = "text-neutral";
+  if (encounter === "legendary") cssClass = "text-crit";
+  else if (encounter === "catastrophe") cssClass = "text-fumble";
+  else if (encounter === "good") cssClass = "text-treasure";
+  else if (encounter === "bad") cssClass = "text-danger";
+
+  typeFlavorText(text, cssClass);
+}
+
+function renderDungeon() {
+  var mapEl = document.getElementById("dungeon-map");
+  if (!mapEl) return;
+
+  // Viewport centered on player
+  var startX = playerX - Math.floor(DVIEW_W / 2);
+  var startY = playerY - Math.floor(DVIEW_H / 2);
+  startX = Math.max(0, Math.min(DGRID_W - DVIEW_W, startX));
+  startY = Math.max(0, Math.min(DGRID_H - DVIEW_H, startY));
+
+  var lines = [];
+  for (var y = startY; y < startY + DVIEW_H && y < DGRID_H; y++) {
+    var row = "";
+    for (var x = startX; x < startX + DVIEW_W && x < DGRID_W; x++) {
+      if (x === playerX && y === playerY) {
+        row += "@";
+      } else {
+        var cell = dgrid[y][x];
+        // Show fog for walls adjacent to explored areas
+        if (cell === "#") {
+          var adjacent = false;
+          for (var dy = -1; dy <= 1; dy++) {
+            for (var dx = -1; dx <= 1; dx++) {
+              var ny = y + dy;
+              var nx = x + dx;
+              if (ny >= 0 && ny < DGRID_H && nx >= 0 && nx < DGRID_W) {
+                var neighbor = dgrid[ny][nx];
+                if (neighbor !== "#") adjacent = true;
+              }
+            }
+          }
+          row += adjacent ? "\u2591" : " ";
+        } else {
+          row += cell;
+        }
+      }
+    }
+    lines.push(row);
+  }
+  mapEl.textContent = lines.join("\n");
+}
+
+function typeFlavorText(text, cssClass) {
+  var textEl = document.getElementById("dungeon-text");
+  if (!textEl) return;
+
+  if (typeTimer) {
+    clearInterval(typeTimer);
+    typeTimer = null;
+  }
+
+  textEl.textContent = "";
+  textEl.className = "dungeon-text " + (cssClass || "text-neutral");
+
+  var i = 0;
+  typeTimer = setInterval(function() {
+    if (i < text.length) {
+      textEl.textContent += text[i];
+      i++;
+    } else {
+      clearInterval(typeTimer);
+      typeTimer = null;
+    }
+  }, 30);
 }
