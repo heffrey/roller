@@ -605,14 +605,47 @@ function dungeonAdvance(type, value) {
     encounter = "bad";
   }
 
-  // Pick a random direction
+  // Pick a direction weighted towards unexplored areas
   var dirs = [
     { dx: 0, dy: -1 },
     { dx: 0, dy: 1 },
     { dx: -1, dy: 0 },
     { dx: 1, dy: 0 }
   ];
-  var dir = dirs[Math.floor(Math.random() * dirs.length)];
+
+  // Calculate unexplored cell count for each direction
+  var dirWeights = dirs.map(function(dir) {
+    var unexploredCount = 0;
+    var checkX = playerX + dir.dx * 5; // Check ahead where player would move
+    var checkY = playerY + dir.dy * 5;
+
+    // Count unexplored (#) cells in a small radius around the target
+    for (var dy = -2; dy <= 2; dy++) {
+      for (var dx = -2; dx <= 2; dx++) {
+        var nx = checkX + dx;
+        var ny = checkY + dy;
+        if (nx > 0 && nx < DGRID_W && ny > 0 && ny < DGRID_H) {
+          if (dgrid[ny][nx] === "#") {
+            unexploredCount++;
+          }
+        }
+      }
+    }
+    return unexploredCount + 1; // +1 to avoid 0 weight
+  });
+
+  // Select direction using weighted random selection
+  var totalWeight = dirWeights.reduce(function(a, b) { return a + b; }, 0);
+  var rand = Math.random() * totalWeight;
+  var cumWeight = 0;
+  var dir = dirs[0];
+  for (var i = 0; i < dirs.length; i++) {
+    cumWeight += dirWeights[i];
+    if (rand <= cumWeight) {
+      dir = dirs[i];
+      break;
+    }
+  }
 
   // Corridor length 3-5, then a room
   var corrLen = randBetween(3, 5);
