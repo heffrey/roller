@@ -12,11 +12,15 @@ img {
 /* Retro title */
 .site-title {
   text-align: center;
+  margin: 0 auto 20px;
+  max-width: 640px;
+}
+
+.site-title-text {
+  display: inline-block;
   font-size: 48px;
   font-weight: bold;
   letter-spacing: 12px;
-  margin: 0 auto 20px;
-  max-width: 640px;
   background-image: linear-gradient(
     90deg,
     #ff1493 0%,
