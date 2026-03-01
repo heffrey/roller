@@ -734,7 +734,7 @@ img {
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   html body {
-    background: #1a1a1a;
+    background: #000000;
     color: #e0e0e0;
   }
 
