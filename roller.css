@@ -733,67 +733,73 @@ img {
 
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
-  body {
+  html body {
     background: #1a1a1a;
     color: #e0e0e0;
   }
 
   /* Invert dice images */
-  .dice-area img {
+  html .pct img,
+  html .d20 img,
+  html .d12 img,
+  html .d8 img,
+  html .d6 img,
+  html .d4 img {
     filter: invert(1);
   }
 
   /* Primary die face values */
-  .fa, .fb, .d20f0, .d12f0, .d8f0, .d6f0, .d4f0 {
+  html .fa, html .fb,
+  html .d20f0, html .d12f0, html .d8f0, html .d6f0, html .d4f0 {
     color: #e0e0e0;
   }
 
   /* Secondary die face values */
-  .fat, .fab, .fbl, .fbr,
-  .d20f1, .d20f2, .d20f3, .d20f4, .d20f5,
-  .d20f6, .d20f7, .d20f8, .d20f9,
-  .d12f1, .d12f2, .d12f3, .d12f4, .d12f5,
-  .d8f1, .d8f2, .d8f3,
-  .d4f1, .d4f2 {
+  html .fat, html .fab, html .fbl, html .fbr,
+  html .d20f1, html .d20f2, html .d20f3, html .d20f4, html .d20f5,
+  html .d20f6, html .d20f7, html .d20f8, html .d20f9,
+  html .d12f1, html .d12f2, html .d12f3, html .d12f4, html .d12f5,
+  html .d8f1, html .d8f2, html .d8f3,
+  html .d4f1, html .d4f2 {
     color: #999;
   }
 
   /* Log panel */
-  .log {
+  html .log {
     background: #252525;
     border-color: #444;
   }
 
-  .log-header {
+  html .log-header {
     color: #aaa;
   }
 
-  .log-entries {
+  html .log-entries {
     background: #1e1e1e;
     border-color: #444;
     color: #ddd;
   }
 
-  .log-entry {
+  html .log-entry {
     border-bottom-color: #333;
   }
 
-  .log-entry .roll-num { color: #777; }
-  .log-entry .roll-type { color: #aaa; }
-  .log-entry .roll-arrow { color: #555; }
+  html .log-entry .roll-num { color: #777; }
+  html .log-entry .roll-type { color: #aaa; }
+  html .log-entry .roll-arrow { color: #555; }
 
-  .log-entry.crit .roll-value { color: #2ecc2e; }
-  .log-entry.fumble .roll-value { color: #ef5350; }
-  .log-entry.max-roll .roll-value { color: #ffa726; }
+  html .log-entry.crit .roll-value { color: #2ecc2e; }
+  html .log-entry.fumble .roll-value { color: #ef5350; }
+  html .log-entry.max-roll .roll-value { color: #ffa726; }
 
-  .log button {
+  html .log button {
     background: #333;
     border-color: #555;
     color: #ddd;
   }
 
-  .log button:hover { background: #444; }
-  .log button:active { background: #555; }
+  html .log button:hover { background: #444; }
+  html .log button:active { background: #555; }
 }
 
 /* Responsive: mobile */
