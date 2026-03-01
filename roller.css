@@ -62,22 +62,106 @@ img {
   margin-bottom: 6px;
 }
 
-.log textarea {
+.log-entries {
   width: 100%;
   box-sizing: border-box;
   font: 13px Consolas, monaco, monospace;
-  resize: vertical;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 8px;
+  padding: 6px;
   background: #fff;
   color: #333;
-  outline: none;
+  overflow-y: auto;
   flex: 1;
+  min-height: 200px;
+  max-height: 300px;
 }
 
-.log textarea:focus {
-  border-color: #888;
+.log-entry {
+  padding: 4px 6px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  animation: log-slide-in 0.3s ease-out;
+}
+
+.log-entry:last-child {
+  border-bottom: none;
+}
+
+.log-entry .roll-num {
+  color: #aaa;
+  font-size: 11px;
+  min-width: 28px;
+}
+
+.log-entry .roll-type {
+  color: #555;
+  font-weight: bold;
+  min-width: 36px;
+}
+
+.log-entry .roll-arrow {
+  color: #ccc;
+}
+
+.log-entry .roll-value {
+  font-weight: bold;
+  font-size: 16px;
+  min-width: 20px;
+}
+
+.log-entry .roll-tag {
+  font-size: 10px;
+  font-weight: bold;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+.log-entry.crit .roll-value {
+  color: #1b8c1b;
+}
+.log-entry.crit .roll-tag {
+  background: #1b8c1b;
+  color: #fff;
+}
+
+.log-entry.fumble .roll-value {
+  color: #c62828;
+}
+.log-entry.fumble .roll-tag {
+  background: #c62828;
+  color: #fff;
+}
+
+.log-entry.max-roll .roll-value {
+  color: #e67e00;
+}
+.log-entry.max-roll .roll-tag {
+  background: #e67e00;
+  color: #fff;
+}
+
+@keyframes log-slide-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Dice bounce animation */
+@keyframes dice-bounce {
+  0%   { transform: translateY(0) rotate(0deg); }
+  15%  { transform: translateY(-10px) rotate(-6deg); }
+  30%  { transform: translateY(0) rotate(4deg); }
+  50%  { transform: translateY(-5px) rotate(-3deg); }
+  70%  { transform: translateY(0) rotate(1deg); }
+  85%  { transform: translateY(-2px) rotate(-1deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.rolling {
+  animation: dice-bounce 0.35s ease-out;
 }
 
 .log button {
@@ -629,7 +713,8 @@ img {
     min-width: 0;
   }
 
-  .log textarea {
-    rows: 10;
+  .log-entries {
+    min-height: 150px;
+    max-height: 200px;
   }
 }
