@@ -2,36 +2,50 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roller</title>
     <link rel="stylesheet" type="text/css" href="roller.css">
-    <script src="roll.js"></script>  
+    <script src="roll.js"></script>
   </head>
 
   <body onload="renderDice()">
-      <div class="table-top" style="width: 640px; margin:  auto;">
-        <div class="dice-set" style="float: left;">
-      
-          <div class="pct"></div>
-          <div style="font-size: 10px; text-align: center; width=128">(percentile)</div>
+      <div class="table-top">
+        <div class="dice-area">
+          <div class="dice-set">
+            <div class="die-group">
+              <div class="pct"></div>
+              <div class="die-label">(percentile)</div>
+            </div>
 
-          <div class="d20" style="margin: auto;"></div>
-          <div style="font-size: 10px; text-align: center; width=128">(d20)</div>
+            <div class="die-group">
+              <div class="d20"></div>
+              <div class="die-label">(d20)</div>
+            </div>
 
-          <div class="d12"  style="margin: auto;"></div>
-          <div style="font-size: 10px; text-align: center; width=128">(d12)</div>
+            <div class="die-group">
+              <div class="d12"></div>
+              <div class="die-label">(d12)</div>
+            </div>
+          </div>
+          <div class="dice-set">
+            <div class="die-group">
+              <div class="d8"></div>
+              <div class="die-label">(d8)</div>
+            </div>
+
+            <div class="die-group">
+              <div class="d6"></div>
+              <div class="die-label">(d6)</div>
+            </div>
+
+            <div class="die-group">
+              <div class="d4"></div>
+              <div class="die-label">(d4)</div>
+            </div>
+          </div>
         </div>
-        <div class="dice-set" style="float: left; width: 128px">
-          <div class="d8"  style="margin: auto;"></div>
-          <div style="font-size: 10px; text-align: center; width=128">(d8)</div>
-
-          <div class="d6"  style="margin: auto;"></div>
-          <div style="font-size: 10px; text-align: center; width=128">(d6)</div>
-
-          <div class="d4"  style="margin: auto;"></div>
-          <div style="font-size: 10px; text-align: center; width=128">(d4)</div>          
-        </div>
-        <div class="log" style="float: left; margin: auto; height="256px;">
-          <textarea id="dice-log" cols="36" rows="14"></textarea>
+        <div class="log">
+          <textarea id="dice-log" rows="14"></textarea>
           <button onclick="logClear()">Clear</button>
         </div>
       </div>
