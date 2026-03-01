@@ -731,10 +731,10 @@ img {
   -webkit-transform: rotate(220deg); /* Safari */
 }
 
-/* Dungeon panel */
+/* Dungeon panel — flex child of .table-top on desktop */
 .dungeon {
-  max-width: 640px;
-  margin: 16px auto 0;
+  flex: 1;
+  min-width: 200px;
   background: #1a1a2e;
   border: 1px solid #333;
   border-radius: 6px;
@@ -886,9 +886,14 @@ img {
     justify-content: center;
   }
 
+  .dungeon {
+    width: 100%;
+    min-width: 0;
+  }
+
   .log-entries {
-    min-height: 150px;
-    max-height: 200px;
+    min-height: 100px;
+    max-height: 150px;
   }
 
   .dungeon-map {
