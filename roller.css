@@ -9,6 +9,39 @@ img {
   -webkit-user-drag: none;
 }
 
+/* Retro title */
+.site-title {
+  text-align: center;
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: 12px;
+  margin: 0 auto 20px;
+  max-width: 640px;
+  background: linear-gradient(
+    90deg,
+    #ff1493,
+    #ff6ec7,
+    #ffff00,
+    #00ffff,
+    #ff1493,
+    #ff6ec7,
+    #ffff00,
+    #00ffff,
+    #ff1493
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: retro-shimmer 3s linear infinite;
+  text-shadow: none;
+}
+
+@keyframes retro-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
 /* Layout */
 .table-top {
   max-width: 640px;
